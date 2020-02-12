@@ -33,6 +33,8 @@ Use it to make something cool, have fun, and share what you've learned with othe
 * {
     transition: 0.3s all;
     text-shadow: rgba(255, 255, 255, .2) 0 0.01em 0.01em;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 *::selection {
@@ -68,6 +70,10 @@ a {
     color: #f44;
 }
 
+img {
+    max-width: 100%;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Header
@@ -84,7 +90,7 @@ a {
     max-height: 80px;
     box-shadow: 0 14px 28px -4px rgba(0, 0, 0, 0.55);
     position: fixed;
-    z-index: 8675311;
+    z-index: 999;
 }
 
 .logo {
@@ -6519,62 +6525,130 @@ b {
     font-weight: 900
 }
 
-div.tagsinput {
-    border: 1px solid #CCC;
-    background: #FFF;
-    padding: 5px;
-    width: 300px;
-    height: 100px;
-    overflow-y: auto
-}
-
-div.tagsinput span.tag {
-    border: 1px solid #a5d24a;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    display: block;
-    float: left;
-    padding: 5px;
-    text-decoration: none;
-    background: #cde69c;
-    color: #638421;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    font-family: helvetica;
-    font-size: 13px
-}
-
-div.tagsinput span.tag a {
-    font-weight: 700;
-    color: #82ad2b;
-    text-decoration: none;
-    font-size: 11px
-}
-
-div.tagsinput input {
-    width: 80px;
-    margin: 0 5px 5px 0;
-    font-family: helvetica;
-    font-size: 13px;
-    border: 1px solid transparent;
-    padding: 5px;
-    background: 0 0;
-    color: #000;
-    outline: 0
-}
-
-div.tagsinput div {
-    display: block;
-    float: left
-}
-
-.tags_clear {
-    clear: both;
-    width: 100%;
-    height: 0
-}
-
 .not_valid {
     background: #FBD8DB !important;
     color: #90111A !important
+}
+
+/* =WordPress Core
+-------------------------------------------------------------- */
+.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.aligncenter,
+div.aligncenter {
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+.alignright {
+    float:right;
+    margin: 5px 0 20px 20px;
+}
+
+.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+a img.alignright {
+    float: right;
+    margin: 5px 0 20px 20px;
+}
+
+a img.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+a img.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+a img.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.wp-caption {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    max-width: 96%; /* Image does not overflow the content area */
+    padding: 5px 3px 10px;
+    text-align: center;
+}
+
+.wp-caption.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignleft {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignright {
+    margin: 5px 0 20px 20px;
+}
+
+.wp-caption img {
+    border: 0 none;
+    height: auto;
+    margin: 0;
+    max-width: 98.5%;
+    padding: 0;
+    width: auto;
+}
+
+.wp-caption p.wp-caption-text {
+    font-size: 11px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0 4px 5px;
+}
+
+.sticky {}
+
+.gallery-caption {}
+
+.bypostauthor {}
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.screen-reader-text:focus {
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    color: #21759b;
+    display: block;
+    font-size: 14px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000; /* Above WP toolbar. */
+}
+
+.size-auto,
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail,
+.dmbs-post img, .dmbs-page img {
+    max-width: 100%;
+    height: auto;
 }

@@ -7,113 +7,6 @@
  * @package divergent_Wordpress_theme
  */
 
-if (!function_exists('divergent_posted_on')) :
-    /**
-     * Prints HTML with meta information for the current post-date/time.
-     */
-    function divergent_posted_on()
-    {
-        $time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-        if (get_the_time('U') !== get_the_modified_time('U')) {
-            $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-        }
-
-        $time_string = sprintf($time_string,
-            esc_attr(get_the_date(DATE_W3C)),
-            esc_html(get_the_date()),
-            esc_attr(get_the_modified_date(DATE_W3C)),
-            esc_html(get_the_modified_date())
-        );
-
-        $posted_on = sprintf(
-        /* translators: %s: post date. */
-            esc_html_x('Posted on %s', 'post date', 'divergent'),
-            '<a href="' . esc_url(get_permalink()) . '" rel="bookmark">' . $time_string . '</a>'
-        );
-
-        echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
-
-    }
-endif;
-
-if (!function_exists('divergent_posted_by')) :
-    /**
-     * Prints HTML with meta information for the current author.
-     */
-    function divergent_posted_by()
-    {
-        $byline = sprintf(
-        /* translators: %s: post author. */
-            esc_html_x('by %s', 'post author', 'divergent'),
-            '<span class="author vcard"><a class="url fn n" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>'
-        );
-
-        echo '<span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
-
-    }
-endif;
-
-if (!function_exists('divergent_entry_footer')) :
-    /**
-     * Prints HTML with meta information for the categories, tags and comments.
-     */
-    function divergent_entry_footer()
-    {
-        // Hide category and tag text for pages.
-        if ('post' === get_post_type()) {
-            /* translators: used between list items, there is a space after the comma */
-            $categories_list = get_the_category_list(esc_html__(', ', 'divergent'));
-            if ($categories_list) {
-                /* translators: 1: list of categories. */
-                printf('<span class="cat-links">' . esc_html__('Posted in %1$s', 'divergent') . '</span>', $categories_list); // WPCS: XSS OK.
-            }
-
-            /* translators: used between list items, there is a space after the comma */
-            $tags_list = get_the_tag_list('', esc_html_x(', ', 'list item separator', 'divergent'));
-            if ($tags_list) {
-                /* translators: 1: list of tags. */
-                printf('<span class="tags-links">' . esc_html__('Tagged %1$s', 'divergent') . '</span>', $tags_list); // WPCS: XSS OK.
-            }
-        }
-
-        if (!is_single() && !post_password_required() && (comments_open() || get_comments_number())) {
-            echo '<span class="comments-link">';
-            comments_popup_link(
-                sprintf(
-                    wp_kses(
-                    /* translators: %s: post title */
-                        __('Leave a Comment<span class="screen-reader-text"> on %s</span>', 'divergent'),
-                        array(
-                            'span' => array(
-                                'class' => array(),
-                            ),
-                        )
-                    ),
-                    get_the_title()
-                )
-            );
-            echo '</span>';
-        }
-
-        edit_post_link(
-            sprintf(
-                wp_kses(
-                /* translators: %s: Name of current post. Only visible to screen readers */
-                    __('Edit <span class="screen-reader-text">%s</span>', 'divergent'),
-                    array(
-                        'span' => array(
-                            'class' => array(),
-                        ),
-                    )
-                ),
-                get_the_title()
-            ),
-            '<span class="edit-link">',
-            '</span>'
-        );
-    }
-endif;
-
 if (!function_exists('divergent_post_thumbnail')) :
     /**
      * Displays an optional post thumbnail.
@@ -121,33 +14,34 @@ if (!function_exists('divergent_post_thumbnail')) :
      * Wraps the post thumbnail in an anchor element on index views, or a div
      * element when on single views.
      */
-    function divergent_post_thumbnail()
+    function divergent_post_thumbnail($link = 1)
     {
         if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
             return;
         }
 
-        if (is_singular()) : ?>
-            <!-- singular -->
-        <?php else : ?>
+        $thumbnail_url = (has_post_thumbnail()) ? get_the_post_thumbnail_url(get_the_ID(), array(287, 191)) : get_template_directory_uri() . "/dist/img/nothumb.jpg";
+
+        if ($link == 0): ?>
+            <img itemprop="image" alt="<?php the_title(); ?>"
+                 src="<?php echo $thumbnail_url ?>"><br>
+        <?php else: ?>
             <a href="<?php the_permalink(); ?>">
                 <img itemprop="image" alt="<?php the_title(); ?>"
-                     src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>">
+                     src="<?php echo $thumbnail_url ?>">
             </a>
-        <?php
-        endif; // End is_singular().
+        <?php endif;
     }
 endif;
 
 function divergent_excerpt($char)
 {
-    $content = substr(strip_tags(wp_filter_nohtml_kses(get_the_content())), 0, 230);
+    $content = substr(strip_tags(wp_filter_nohtml_kses(get_the_content())), 0, 230) . '...';
     echo $content;
 }
 
 function divergent_pagination(WP_Query $wp_query = null, $echo = true)
 {
-
     if (null === $wp_query) {
         global $wp_query;
     }
@@ -159,7 +53,7 @@ function divergent_pagination(WP_Query $wp_query = null, $echo = true)
             'total' => $wp_query->max_num_pages,
             'type' => 'array',
             'show_all' => false,
-            'end_size' => 3,
+            'end_size' => 4,
             'mid_size' => 1,
             'prev_next' => true,
             'prev_text' => __('«'),
@@ -170,7 +64,7 @@ function divergent_pagination(WP_Query $wp_query = null, $echo = true)
     );
 
     if (is_array($pages)) {
-        $pagination = '<div class="pagination"><ul class="pagination">';
+        $pagination = '<div class="pagination float-left"><ul class="pagination">';
 
         foreach ($pages as $page) {
             $pagination .= '<li class="page-item' . (strpos($page, 'current') !== false ? ' active' : '') . '"> ' . str_replace('page-numbers', 'page-link', $page) . '</li>';
@@ -250,7 +144,7 @@ function divergent_breadcrumbs()
             } else {
                 if ($show_current) {
                     if ($position >= 1) echo $sep;
-                    echo $before . sprintf($text['category'], single_cat_title('', false)) . $after;
+                    echo $before . sprintf($link, get_category_link($cat), sprintf($text['category'], single_cat_title('', false)), single_cat_title('', false)) . $after;
                 } elseif ($show_last_sep) echo $sep;
             }
 
@@ -263,20 +157,20 @@ function divergent_breadcrumbs()
             } else {
                 if ($show_current) {
                     if ($position >= 1) echo $sep;
-                    echo $before . sprintf($text['search'], get_search_query()) . $after;
+                    echo $before . $sep . sprintf($link, $home_url . "?s=" . get_search_query(), sprintf($text['search'], get_search_query()), $position) . $after;
                 } elseif ($show_last_sep) echo $sep;
             }
 
         } elseif (is_year()) {
             if ($show_home_link && $show_current) echo $sep;
-            if ($show_current) echo $before . get_the_time('Y') . $after;
+            if ($show_current) echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y'), $position);
             elseif ($show_home_link && $show_last_sep) echo $sep;
 
         } elseif (is_month()) {
             if ($show_home_link) echo $sep;
             $position += 1;
             echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y'), $position);
-            if ($show_current) echo $sep . $before . get_the_time('F') . $after;
+            if ($show_current) echo $sep . $before . sprintf($link, get_month_link(get_the_time('Y'), get_the_time('m')), get_the_time('F'), $position) . $after;
             elseif ($show_last_sep) echo $sep;
 
         } elseif (is_day()) {
@@ -285,7 +179,7 @@ function divergent_breadcrumbs()
             echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y'), $position) . $sep;
             $position += 1;
             echo sprintf($link, get_month_link(get_the_time('Y'), get_the_time('m')), get_the_time('F'), $position);
-            if ($show_current) echo $sep . $before . get_the_time('d') . $after;
+            if ($show_current) echo $sep . $before . sprintf($link, get_day_link(get_the_time('Y'), get_the_time('m'), get_the_time('d')), get_the_time('d'), $position) . $after;
             elseif ($show_last_sep) echo $sep;
 
         } elseif (is_single() && !is_attachment()) {
@@ -294,7 +188,7 @@ function divergent_breadcrumbs()
                 $post_type = get_post_type_object(get_post_type());
                 if ($position > 1) echo $sep;
                 echo sprintf($link, get_post_type_archive_link($post_type->name), $post_type->labels->name, $position);
-                if ($show_current) echo $sep . $before . get_the_title() . $after;
+                if ($show_current) echo $sep . $before . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->labels->name, $position) . $after;
                 elseif ($show_last_sep) echo $sep;
             } else {
                 $cat = get_the_category();
@@ -326,7 +220,7 @@ function divergent_breadcrumbs()
                 echo $sep . sprintf($link, get_permalink(), get_the_title(), $position);
             } else {
                 if ($show_home_link && $show_current) echo $sep;
-                if ($show_current) echo $before . $post_type->label . $after;
+                if ($show_current) echo $before . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label, $position) . $after;
                 elseif ($show_home_link && $show_last_sep) echo $sep;
             }
 
@@ -349,7 +243,7 @@ function divergent_breadcrumbs()
 
         } elseif (is_page() && !$parent_id) {
             if ($show_home_link && $show_current) echo $sep;
-            if ($show_current) echo $before . get_the_title() . $after;
+            if ($show_current) echo $sep . sprintf($link, get_permalink(), get_the_title(), $position);
             elseif ($show_home_link && $show_last_sep) echo $sep;
 
         } elseif (is_page() && $parent_id) {
@@ -382,7 +276,7 @@ function divergent_breadcrumbs()
                 echo $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
             } else {
                 if ($show_home_link && $show_current) echo $sep;
-                if ($show_current) echo $before . sprintf($text['author'], $author->display_name) . $after;
+                if ($show_current) echo $before . sprintf($link, get_author_posts_url($author->ID), sprintf($text['author'], $author->display_name), $position) . $after;
                 elseif ($show_home_link && $show_last_sep) echo $sep;
             }
 
@@ -397,6 +291,5 @@ function divergent_breadcrumbs()
         }
 
         echo $wrap_after;
-
     }
 }

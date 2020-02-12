@@ -18,11 +18,11 @@ get_header();
         <div class="container">
             <div class="row">
                 <section class="col-lg-8" id="Content">
-                    <nav aria-label="breadcrumb">
+                    <!--<nav aria-label="breadcrumb">
                         <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-                            <?php divergent_breadcrumbs(); ?>
+                            <?php /*divergent_breadcrumbs(); */?>
                         </ol>
-                    </nav>
+                    </nav>-->
                     <h1 style="font-size:0.01em;text-indent:-9999px;margin:0;padding:0"><?php bloginfo('site_name'); ?></h1>
                     <?php
                     if (have_posts()) :
