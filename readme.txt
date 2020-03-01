@@ -1,4 +1,4 @@
-# divergent Wordpress theme
+=== divergent Wordpress theme ===
 
 Tags: blog-theme, blog, content-creator, magazine
 
@@ -9,14 +9,14 @@ License: GNU General Public License v2 or later
 License URI: LICENSE
 
 
-### == Description ==
+== Description ==
 
 Doğukan Öksüz tarafından hazırlanmış 100% SEO uyumlu Wordpress içerik üreticisi teması.
 
-### == Installation ==
+== Installation ==
 
 1. In your admin panel, go to Appearance > Themes and click the Add New button.
 2. Click Upload Theme and Choose File, then select the theme's .zip file. Click Install Now.
 3. Click Activate to use your new theme right away.
 
-### == Frequently Asked Questions ==
+== Frequently Asked Questions ==
