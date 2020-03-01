@@ -5,8 +5,6 @@
 
 Tags: blog-theme, blog, content-creator, magazine
 
-Requires at least: 4.5
-Tested up to: 4.8
 Stable tag: 1.7
 License: GNU General Public License v2 or later
 License URI: LICENSE
