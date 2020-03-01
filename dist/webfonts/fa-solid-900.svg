@@ -13,17 +13,17 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <defs>
         <font id="FontAwesome5Free-Solid" horiz-adv-x="512">
             <font-face
-                font-family="Font Awesome 5 Free Solid"
-                font-weight="900"
-                font-stretch="normal"
-                units-per-em="512"
-                panose-1="2 0 5 3 0 0 0 0 0 0"
-                ascent="448"
-                descent="-64"
-                bbox="-0.983398 -64.9834 640.104 448.427"
-                underline-thickness="25"
-                underline-position="-51"
-                unicode-range="U+0020-F897"
+                    font-family="Font Awesome 5 Free Solid"
+                    font-weight="900"
+                    font-stretch="normal"
+                    units-per-em="512"
+                    panose-1="2 0 5 3 0 0 0 0 0 0"
+                    ascent="448"
+                    descent="-64"
+                    bbox="-0.983398 -64.9834 640.104 448.427"
+                    underline-thickness="25"
+                    underline-position="-51"
+                    unicode-range="U+0020-F897"
             />
             <missing-glyph/>
             <glyph glyph-name="glass-martini" unicode="&#xf000;"

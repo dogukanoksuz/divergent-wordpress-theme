@@ -1,4 +1,6 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
+<?php if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
 /**
  *
  * Field: subheading
@@ -7,18 +9,18 @@
  * @version 1.0.0
  *
  */
-if( ! class_exists( 'CSF_Field_subheading' ) ) {
-  class CSF_Field_subheading extends CSF_Fields {
+if ( ! class_exists( 'CSF_Field_subheading' ) ) {
+	class CSF_Field_subheading extends CSF_Fields {
 
-    public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
-      parent::__construct( $field, $value, $unique, $where, $parent );
-    }
+		public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
+			parent::__construct( $field, $value, $unique, $where, $parent );
+		}
 
-    public function render() {
+		public function render() {
 
-      echo ( ! empty( $this->field['content'] ) ) ? $this->field['content'] : '';
+			echo ( ! empty( $this->field['content'] ) ) ? $this->field['content'] : '';
 
-    }
+		}
 
-  }
+	}
 }

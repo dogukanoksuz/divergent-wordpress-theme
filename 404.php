@@ -16,7 +16,8 @@ get_header();
                 <div class="col-12 text-center">
                     <h1>404 Sayfa Bulunamadı!</h1>
                     <br>
-                    <img src="<?php echo get_template_directory_uri() ?>/dist/img/404.png" alt="404 Not Found" style="max-height: 500px;">
+                    <img src="<?php echo get_template_directory_uri() ?>/dist/img/404.png" alt="404 Not Found"
+                         style="max-height: 500px;">
                 </div>
             </div>
         </div>

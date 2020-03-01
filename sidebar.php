@@ -12,6 +12,6 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 }
 ?>
 
-<div class="col-lg-4" id="Sidebar">
+<aside class="col-lg-4" id="Sidebar">
 	<?php dynamic_sidebar( 'sidebar-1' ); ?>
-</div>
+</aside>

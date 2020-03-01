@@ -14,28 +14,28 @@ get_header();
         <div class="container">
             <div class="row">
                 <section class="col-lg-8" id="Content">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-                            <?php divergent_breadcrumbs(); ?>
-                        </ol>
-                    </nav>
-                    <?php
-                    while (have_posts()) :
-                        the_post();
 
-                        get_template_part('template-parts/content-single', get_post_type());
+					<?php divergent_breadcrumbs(); ?>
 
-                        the_post_navigation();
+					<?php
+					while ( have_posts() ) :
+						the_post();
 
-                        // If comments are open or we have at least one comment, load up the comment template.
-                        if (comments_open() || get_comments_number()) :
-                            comments_template();
-                        endif;
+						get_template_part( 'template-parts/content-single', get_post_type() );
 
-                    endwhile; // End of the loop.
-                    ?>
+						the_post_navigation();
+
+						include( 'template-parts/template-random-posts.php' );
+
+						// If comments are open or we have at least one comment, load up the comment template.
+						if ( comments_open() || get_comments_number() ) :
+							comments_template();
+						endif;
+
+					endwhile; // End of the loop.
+					?>
                 </section>
-                <?php get_sidebar(); ?>
+				<?php get_sidebar(); ?>
             </div>
         </div>
     </main>

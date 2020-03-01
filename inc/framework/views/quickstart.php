@@ -1,4 +1,6 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly. ?>
+<?php if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly. ?>
 
 <p><strong>Let's quick start it.</strong></p>
 <p>Open your current theme <code>functions.php</code> file and paste this code.</p>
@@ -64,4 +66,5 @@ echo $options['opt-textarea']; <span>// id of field</span>
 </pre>
 </div>
 
-<p><a href="http://codestarframework.com/documentation/" class="button" target="_blank" rel="nofollow"><i class="fa fa-book"></i> Online Documentation</a></p>
+<p><a href="http://codestarframework.com/documentation/" class="button" target="_blank" rel="nofollow"><i
+                class="fa fa-book"></i> Online Documentation</a></p>

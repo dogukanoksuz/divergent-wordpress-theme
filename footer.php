@@ -8,29 +8,27 @@
  *
  * @package divergent_Wordpress_theme
  */
-
+$divergent_options = get_option('divergent');
 ?>
 
 <footer id="Footer">
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                Copyright &copy; 2020 <b><?php bloginfo('name'); ?></b>
+                <?php echo $divergent_options['copyright-text']; ?>
             </div>
-            <div class="col-sm-4 text-center" style="font-size: 20px">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>&nbsp;
-                <a href="#"><i class="fab fa-twitter"></i></a>&nbsp;
-                <a href="#"><i class="fab fa-instagram"></i></a>&nbsp;
-                <a href="#"><i class="fab fa-steam-symbol"></i></a>&nbsp;
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>&nbsp;
-                <a href="#"><i class="fab fa-github"></i></a>&nbsp;
-                <a href="#"><i class="fas fa-envelope"></i></a>
+            <div class="<?php echo $divergent_options['credits'] ? 'col-sm-4 text-center' : 'col-sm-8 textAlignRight'; ?>" style="font-size: 20px">
+                <?php foreach($divergent_options['social-media'] as $icon): ?>
+                <a href="<?php echo $icon["url"]; ?>" <?php echo $icon["newtab"] ? "target='_blank'" : ''; ?>><i class="<?php echo $icon["icon"]; ?>"></i></a>&nbsp;
+                <?php endforeach; ?>
             </div>
+            <?php if($divergent_options['credits'] == true) : ?>
             <div class="col-sm-4 textAlignRight">
-                <?php
-                printf(esc_html__('Theme %1$s by %2$s.', 'divergent <i class="fas fa-heart"></i>'), 'divergent <i class="fas fa-heart"></i>', '<a href="https://dogukan.dev">Doğukan Öksüz</a>');
-                ?>
+				<?php
+				printf( esc_html__( 'Theme %1$s by %2$s.', 'divergent <i class="fas fa-heart"></i>' ), 'divergent <i class="fas fa-heart"></i>', '<a href="https://dogukan.dev">Doğukan Öksüz</a>' );
+				?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </footer>
